@@ -1,0 +1,183 @@
+{% comment %}
+** Featured promotions - homepage partial **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+{% assign featured_promos_per_row = section.settings.featured_promos_per_row | minus: 0 %}
+{% assign title_on_image = section.settings.promo_text_on_image_enabled %}
+
+
+{% if section.blocks.size > 0 %}
+  <div class="featured-promotions container full-width--{{ section.settings.featured_promos_grid }}">
+    <h2 class="rich-text__heading title center">
+      {{ section.settings.title }}
+    </h2>
+    <div class="feature_divider"></div>
+    <div  class="js-featured-promotions promo-per-row-{{ featured_promos_per_row }} clearfix"
+          data-promo-animation="{{ section.settings.featured_links_animation }}">
+        {% for block in section.blocks %}
+      	{% assign product = all_products[block.settings.product] %}
+          <figure class="feature-section section-{{ forloop.index }} promo-{{ forloop.index }} title-overlay-{{ title_on_image }} {% if section.settings.featured_links_animation != blank %}promo-animation--true{% endif %}" {{ block.shopify_attributes }}>
+              <div class="feature-inner feature-style--{{ section.settings.feature_style }} ">
+                {% if product.featured_media.preview_image != nil %}
+                  {% render 'image-element',
+                          image: product.featured_media.preview_image,
+                          alt: product.title,
+                          stretch_width: true
+                  %}
+                {% else %}
+                  {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+                  {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+                {% endif %}
+                <figcaption class="feature-overlay">
+                    <a href="{{ product.url }}" class="link-promo"></a>
+                      <div class="feature-wrap">
+                        {% if block.settings.title != blank %}
+                          <h2 class="title">{{ block.settings.title }}</h2>
+                        {% endif %}
+                        <div class="feature-details">
+                            <div class="description">{{ product.title }}</div>
+                        </div>
+                      </div>
+                  </figcaption>
+              </div>
+            {% if title_on_image == blank %}
+              {% if block.settings.title != blank %}
+                <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}>
+                  <h2 class="title title-below">{{ block.settings.title }}</h2>
+                </a>
+              {% endif %}
+            {% endif %}
+          </figure>
+        {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Featured products gallery",
+  "class": "featured-promotions-section",
+  "max_blocks": 12,
+  "settings": [
+	{
+	  "type": "text",
+	  "id": "title",
+	  "label": "Title"
+	},
+    {
+      "type": "checkbox",
+      "id": "featured_promos_grid",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_text_on_image_enabled",
+      "label": "Show title on image",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "featured_promos_per_row",
+      "label": "Promotions per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "featured_links_animation",
+      "label": "Promotions animation",
+      "options": [
+        {
+          "value": "fadeIn",
+          "label": "Fade In"
+        },
+        {
+          "value": "fadeInUp",
+          "label": "Fade Up"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade Down"
+        },
+        {
+          "value": "",
+          "label": "None"
+        }
+      ],
+      "default": "fadeInDown"
+    },
+    {
+      "type": "select",
+      "id": "feature_style",
+      "label": "Promotions style",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded"
+        }
+      ],
+      "default": "square"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Promotion",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Header",
+          "default": "Feature"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Featured products gallery",
+    "category": "Product",
+    "settings": {
+      "featured_promos_grid": true
+    },
+    "blocks": [
+      {
+        "type": "image",
+        "settings": {
+
+        }
+      },
+      {
+        "type": "image",
+        "settings": {
+
+        }
+      },
+      {
+        "type": "image",
+        "settings": {
+
+        }
+      }
+    ]
+  }]
+}
+
+{% endschema %}

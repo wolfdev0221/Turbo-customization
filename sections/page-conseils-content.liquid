@@ -1,0 +1,256 @@
+<div class="page_conseils_content_p">
+  <div class="container">
+    {% for block in section.blocks %}
+    <div class="section_container_p">
+      {% comment %}
+      {% if block.type == "two-one-section" %}
+      {% assign id = "conseils1" %}
+      {% elsif block.type == "one-two-section" %}
+      {% assign id = "conseils2" %}
+      {% elsif block.type == "one-one-section" %}
+      {% assign id = "conseils" %}
+      {% endif %}
+      {% endcomment %}
+      <div class="sub_title_container_p">
+        <div class="subtitle_p">
+          <span>{{ block.settings.title }}</span>
+        </div>
+      </div>
+      {% if block.type == "two-one-section" %}
+      <div class="section_wrapper_p two--one--layout">
+        <div class="section_left_p">
+          {{ block.settings.text }}
+          <div id="peint"></div>
+        </div>
+        <div class="section_right_p">
+          <img src="{{ block.settings.image | img_url: 'master'}}" alt="{{ block.settings.title }}">
+        </div>
+      </div>
+      {% elsif block.type == "one-two-section"%}
+      <div class="section_wrapper_p one--two--layout">
+        <div class="section_left_p">
+          <img src="{{ block.settings.image | img_url: 'master'}}" alt="{{ block.settings.title }}">
+        </div>
+        <div class="section_right_p">
+          {{ block.settings.text }}
+          <div id="conseils"></div>
+        </div>
+      </div>
+      {% elsif block.type == "one-one-section"%}
+      <div class="section_wrapper_p one--one--layout">
+        <div class="section_left_p">
+          {{ block.settings.text }}
+          <div id="fiche"></div>
+        </div>
+        <div class="section_right_p">
+          {% include 'include-contact-form', context: 'contact-template' %}
+        </div>
+      </div>
+      {% elsif block.type == "one-section"%}
+      <dl class="faqAccordion">
+        <dt><button type="button" aria-controls="panel-01" aria-expanded="true">VERSION FRANÇAISE</button></dt>
+        <dd id="panel-01" aria-hidden="false">
+          <a target="_blank" href="{{ block.settings.link1 }}">{{ block.settings.name1 }}</a>
+          <a target="_blank" href="{{ block.settings.link2 }}">{{ block.settings.name2 }}</a>
+          <a target="_blank" href="{{ block.settings.link3 }}">{{ block.settings.name3 }}</a>
+          <a target="_blank" href="{{ block.settings.link4 }}">{{ block.settings.name4 }}</a>
+          <a target="_blank" href="{{ block.settings.link5 }}">{{ block.settings.name5 }}</a>
+        </dd>
+        <dt><button type="button" aria-controls="panel-01" aria-expanded="true">VERSION ANGLAISE</button></dt>
+        <dd id="panel-01" aria-hidden="false">
+          <a target="_blank" href="{{ block.settings.link6 }}">{{ block.settings.name6 }}</a>
+          <a target="_blank" href="{{ block.settings.link7 }}">{{ block.settings.name7 }}</a>
+          <a target="_blank" href="{{ block.settings.link8 }}">{{ block.settings.name8 }}</a>
+          <a target="_blank" href="{{ block.settings.link9 }}">{{ block.settings.name9 }}</a>
+          <a target="_blank" href="{{ block.settings.link10 }}">{{ block.settings.name10 }}</a>
+        </dd>        
+      </dl>      
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Conseils Page Content",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "two-one-section",
+        "name": "Two-One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		  }
+        ]
+      },
+      {
+        "type": "one-two-section",
+        "name": "One-Two",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		  }
+        ]
+      },
+      {
+        "type": "one-one-section",
+        "name": "One-One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  }
+        ]
+      },
+      {
+        "type": "one-section",
+        "name": "One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "text",
+			"id": "name1",
+			"label": "Name1"
+		  },
+		  {
+			"type": "url",
+			"id": "link1",
+			"label": "Link1"
+		  },
+		  {
+			"type": "text",
+			"id": "name2",
+			"label": "Name2"
+		  },
+		  {
+			"type": "url",
+			"id": "link2",
+			"label": "Link2"
+		  },
+		  {
+			"type": "text",
+			"id": "name3",
+			"label": "Name3"
+		  },
+		  {
+			"type": "url",
+			"id": "link3",
+			"label": "Link3"
+		  },
+		  {
+			"type": "text",
+			"id": "name4",
+			"label": "Name4"
+		  },
+		  {
+			"type": "url",
+			"id": "link4",
+			"label": "Link4"
+		  },
+		  {
+			"type": "text",
+			"id": "name5",
+			"label": "Name5"
+		  },
+		  {
+			"type": "url",
+			"id": "link5",
+			"label": "Link5"
+		  },
+		  {
+			"type": "text",
+			"id": "name6",
+			"label": "Name6"
+		  },
+		  {
+			"type": "url",
+			"id": "link6",
+			"label": "Link6"
+		  },
+		  {
+			"type": "text",
+			"id": "name7",
+			"label": "Name7"
+		  },
+		  {
+			"type": "url",
+			"id": "link7",
+			"label": "Link7"
+		  },
+		  {
+			"type": "text",
+			"id": "name8",
+			"label": "Name8"
+		  },
+		  {
+			"type": "url",
+			"id": "link8",
+			"label": "Link8"
+		  },
+		  {
+			"type": "text",
+			"id": "name9",
+			"label": "Name9"
+		  },
+		  {
+			"type": "url",
+			"id": "link9",
+			"label": "Link9"
+		  },
+		  {
+			"type": "text",
+			"id": "name10",
+			"label": "Name10"
+		  },
+		  {
+			"type": "url",
+			"id": "link10",
+			"label": "Link10"
+		  }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

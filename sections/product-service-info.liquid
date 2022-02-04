@@ -1,0 +1,43 @@
+<div class="product_service_info_container_p">
+  <div class="container">
+    <div class="service_wrapper_p">
+      {% for block in section.blocks %}
+      <div class="service_item_p">
+        <p class="service_name_p"> {{ block.settings.service_name }}</p>
+        <p class="service_info_p"> {{ block.settings.service_info }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Service Information",
+    "settings": [],
+	"blocks": [
+	{
+        "type": "service-item",
+        "name": "Service Info",
+        "settings": [
+		{
+		  "type": "text",
+		  "id": "service_name",
+		  "label": "Service Name"
+	    },
+	    {
+		  "type": "text",
+		  "id": "service_info",
+		  "label": "Service Information"
+    	}
+		]
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

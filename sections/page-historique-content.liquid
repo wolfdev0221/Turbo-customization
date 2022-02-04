@@ -1,0 +1,165 @@
+<div class="page_historique_content_p">
+  <div class="container">
+    {% for block in section.blocks %}
+    <div class="section_container_p">
+      {% unless block.type == "one-one-section" %}
+      <div class="sub_title_container_p">
+        <div class="subtitle_p">
+          <span>{{ block.settings.title }}</span>
+        </div>
+      </div>
+      {% endunless %}
+      {% if block.type == "two-one-section" %}
+      <div class="section_wrapper_p two--one--layout">
+        <div class="section_left_p">
+          {{ block.settings.text }}
+        </div>
+        <div class="section_right_p">
+          <img src="{{ block.settings.image | img_url: 'master'}}" alt="{{ block.settings.title }}">
+        </div>
+      </div>
+      {% elsif block.type == "one-two-section"%}
+      <div class="section_wrapper_p one--two--layout">
+        <div class="section_left_p">
+          <img src="{{ block.settings.image | img_url: 'master'}}" alt="{{ block.settings.title }}">
+        </div>
+        <div class="section_right_p">
+          {{ block.settings.text }}
+          <div id="showroom"></div>
+        </div>
+      </div>
+      {% elsif block.type == "one-one-section"%}
+      <div class="section_wrapper_p one--one--layout">
+        <div class="section_left_p">
+          <p class="item_title_p">{{ block.settings.title }}</p>
+          <p class="item_subtitle_p">{{ block.settings.sub_title }}</p>
+          {{ block.settings.text }}
+        </div>
+        <div class="section_right_p">
+          <img src="{{ block.settings.image | img_url: 'master'}}" alt="{{ block.settings.title }}">
+        </div>
+      </div>
+      {% elsif block.type == "one-section"%}
+      <div class="section_wrapper_p one--layout">
+        <p>{{ block.settings.text }}</p>
+        <div>
+          <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+        </div>
+        {% comment %}
+        <video width="100%" controls>
+          <source src="{{ block.settings.video_url }}" type="video/mp4">
+          <source src="" type="video/ogg">
+          Your browser does not support the video tag.
+        </video>
+        {% endcomment %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Historique Page Content",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "two-one-section",
+        "name": "Two-One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		  }
+        ]
+      },
+      {
+        "type": "one-two-section",
+        "name": "One-Two",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		  }
+        ]
+      },
+      {
+        "type": "one-one-section",
+        "name": "One-One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "text",
+			"id": "sub_title",
+			"label": "Title"
+		  },
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		  }
+        ]
+      },
+      {
+        "type": "one-section",
+        "name": "One",
+        "settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		  },
+		  {
+			"type": "text",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "video_url",
+			"id": "video_url",
+			"accept": ["youtube", "vimeo"],
+			"label": "Video URL"
+		  }
+		]
+	  }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

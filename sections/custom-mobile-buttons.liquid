@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="link_box_container_p">
+    {% for block in section.blocks %}
+    <div class="box_item_p" style="background: {{ section.settings.btn_color }}">
+      <a href="{{ block.settings.link }}">{{ block.settings.title }}</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mobile Redirects",
+  "class": "featured-products-section",
+  "settings": [
+	{
+	  "type": "color",
+	  "id": "btn_color",
+	  "label": "Button color"
+	}
+  ],
+  "blocks": [
+    {
+      "type": "Button",
+      "name": "Button",
+	  "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+		  "type": "url",
+		  "id": "link",
+		  "label": "Link"
+		}
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Mobile buttons",
+    "category": "Custom",
+    "settings": {
+    }
+  }]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,103 @@
+<div class="container">
+  <h2 class="rich-text__heading title center">
+    {{ section.settings.title }}
+  </h2>
+  <div class="feature_divider"></div>
+  <div class="color_palette_container_p">
+    <div class="color_palette_left_p">
+      <div class="color_palette_left_top_p">
+        {% for block in section.blocks %}
+        <a href="{{ collections[block.settings.featured_collection].url }}">
+          <div class="color_palette_item_p" style="background: {{ block.settings.color_collection }}">
+            {{ collections[block.settings.featured_collection].title }}({{ collections[block.settings.featured_collection].products_count }})
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      
+        <a href="{{ section.settings.image1_link }}">
+      <div class="color_palette_left_bottom_p">
+          <img class="lazyloading" src="{{ section.settings.image1_p | img_url: 'master' }}">
+          <div>{{ section.settings.text1_p }}</div>
+        
+      </div>
+      </a>
+    </div>
+    <div class="color_palette_right_p" style="background-image: url('{{ section.settings.image2_p | img_url: 'master' }}')">
+      <div class="image_tint_p">
+      </div>
+      {{ section.settings.text2_p }}
+    </div>
+  </div>
+</div>
+  
+{% schema %}
+{
+  "name": "Featured Colors",
+  "class": "featured-products-section",
+  "max_blocks": 12,
+  "settings": [
+	{
+	  "type": "text",
+	  "id": "title",
+	  "label": "Title"
+	},
+	{
+	  "type": "image_picker",
+	  "id": "image1_p",
+	  "label": "Image 1"
+	},
+	{
+	  "type": "url",
+	  "id": "image1_link",
+	  "label": "Link for image1"
+	},
+	{
+	  "type": "textarea",
+	  "id": "text1_p",
+	  "label": "Text 1"
+	},
+	{
+	  "type": "image_picker",
+	  "id": "image2_p",
+	  "label": "Image 2"
+	},
+	{
+	  "type": "textarea",
+	  "id": "text2_p",
+	  "label": "Text 2"
+	}
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+	  "limit": 6,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "featured_collection",
+          "label": "Collection"
+        },
+		{
+		  "type": "color",
+		  "id": "color_collection",
+		  "label": "Color for collection"
+		}
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Color Palette",
+    "category": "Custom",
+    "settings": {
+    }
+  }]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
